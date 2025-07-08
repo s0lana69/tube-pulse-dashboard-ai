@@ -2,7 +2,9 @@ import { Users, Eye, DollarSign, TrendingUp, Play, Target, BarChart3, Clock } fr
 import { MetricCard } from "./MetricCard";
 import { AnalyticsChart } from "./AnalyticsChart";
 import { RecentVideos } from "./RecentVideos";
+import { RecentComments } from "./RecentComments";
 import { TopKeywords } from "./TopKeywords";
+import { SeoAnalysis } from "./SeoAnalysis";
 
 // Mock data for charts
 const viewsData = [
@@ -83,6 +85,17 @@ export const YoutubeDashboard = () => {
         />
       </div>
 
+      {/* Recent Content Section - Top Priority */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <RecentVideos />
+        <RecentComments />
+      </div>
+
+      {/* SEO Analysis Section */}
+      <div className="mb-8">
+        <SeoAnalysis />
+      </div>
+
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <AnalyticsChart
@@ -101,9 +114,8 @@ export const YoutubeDashboard = () => {
         />
       </div>
 
-      {/* Bottom Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <RecentVideos />
+      {/* Keywords Section */}
+      <div className="mb-8">
         <TopKeywords />
       </div>
 
