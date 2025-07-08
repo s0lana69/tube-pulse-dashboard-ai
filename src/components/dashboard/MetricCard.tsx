@@ -51,11 +51,11 @@ export const MetricCard = ({
   }, [value, delay]);
 
   const colorClasses = {
-    youtube: "border-l-4 border-l-youtube bg-card/50 backdrop-blur-sm",
-    success: "border-l-4 border-l-success bg-card/50 backdrop-blur-sm", 
-    info: "border-l-4 border-l-info bg-card/50 backdrop-blur-sm",
-    warning: "border-l-4 border-l-warning bg-card/50 backdrop-blur-sm",
-    purple: "border-l-4 border-l-purple bg-card/50 backdrop-blur-sm"
+    youtube: "border-youtube/20 bg-gradient-to-br from-youtube/10 to-transparent",
+    success: "border-success/20 bg-gradient-to-br from-success/10 to-transparent",
+    info: "border-info/20 bg-gradient-to-br from-info/10 to-transparent",
+    warning: "border-warning/20 bg-gradient-to-br from-warning/10 to-transparent",
+    purple: "border-purple/20 bg-gradient-to-br from-purple/10 to-transparent"
   };
 
   const iconColorClasses = {
@@ -67,43 +67,34 @@ export const MetricCard = ({
   };
 
   return (
-    <div 
-      className={`relative overflow-hidden transition-all duration-500 hover:translate-y-[-2px] ${
+    <Card 
+      className={`relative overflow-hidden border transition-all duration-500 hover:shadow-lg hover:scale-105 ${
         colorClasses[color]
       } ${isVisible ? 'animate-scale-in' : 'opacity-0'}`}
     >
-      <div className="p-6">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg bg-${color}/10`}>
-              <Icon className={`h-5 w-5 ${iconColorClasses[color]}`} />
-            </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</p>
-              <div className="flex items-baseline gap-2 mt-1">
-                <h3 className={`text-3xl font-black ${iconColorClasses[color]}`}>
-                  {formatter(displayValue)}
-                </h3>
-              </div>
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <p className="text-sm font-medium text-muted-foreground">{title}</p>
+            <div className="flex items-baseline gap-2">
+              <h3 className={`text-2xl font-bold animate-counter-up ${iconColorClasses[color]}`}>
+                {formatter(displayValue)}
+              </h3>
+              <span className={`text-sm font-medium flex items-center gap-1 ${
+                change >= 0 ? 'text-success' : 'text-destructive'
+              }`}>
+                {change >= 0 ? '↗' : '↘'} {Math.abs(change)}%
+              </span>
             </div>
           </div>
-          <div className={`px-2 py-1 rounded-full text-xs font-bold ${
-            change >= 0 
-              ? 'bg-success/10 text-success' 
-              : 'bg-destructive/10 text-destructive'
-          }`}>
-            {change >= 0 ? '+' : ''}{change}%
+          <div className={`p-3 rounded-full bg-gradient-to-br from-${color}/20 to-${color}/5`}>
+            <Icon className={`h-6 w-6 ${iconColorClasses[color]}`} />
           </div>
         </div>
         
-        {/* Progress bar */}
-        <div className="h-1 bg-muted rounded-full overflow-hidden">
-          <div 
-            className={`h-full bg-${color} transition-all duration-1000 ease-out`}
-            style={{ width: isVisible ? '100%' : '0%' }}
-          />
-        </div>
-      </div>
-    </div>
+        {/* Animated background glow */}
+        <div className={`absolute inset-0 bg-gradient-to-r from-${color}/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300`} />
+      </CardContent>
+    </Card>
   );
 };
